@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="موقع شخصي لعرض مهاراتي وخبراتي في البرمجة وتصميم المواقع.">
+    <meta name="keywords" content="برمجة, تصميم مواقع, تطوير ويب, حسن">
+    <meta name="author" content="Hasan">
+    <title>موقع Hasan | مبرمج و مصمم ويب</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* التصميم العام */
+        body {
+            font-family: 'Tajawal', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f9f9f9;
+        }
+
+        header {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin: 10px 0 0;
+            animation: fadeIn 3s ease-in-out;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; /* لجعل القائمة تتناسب مع الشاشات الصغيرة */
+        }
+
+        nav ul li {
+            margin: 0.5rem 1rem; /* تقليل الهوامش للشاشات الصغيرة */
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease, background-color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        nav ul li a:hover {
+            color: #6a11cb;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-mode nav ul li a {
+            color: #f9f9f9;
+        }
+
+        body.dark-mode nav ul li a:hover {
+            color: #6a11cb;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        section {
+            padding: 4rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #2575fc;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .skills-grid, .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill, .project {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e0e0e0;
+            color: #333;
+        }
+
+        .skill:hover, .project:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background: #f5f5f5;
+            border-color: #6a11cb;
+        }
+
+        .skill i, .project i {
+            font-size: 2.5rem;
+            color: #6a11cb;
+            margin-bottom: 1rem;
+        }
+
+        /* قسم المهارات */
+        #skills {
+            background: linear-gradient(135deg, #f0f4ff, #e6e9ff);
+            padding: 4rem 0;
+        }
+
+        #skills h2 {
+            color: #2575fc;
+        }
+
+        /* قسم المشاريع */
+        #projects {
+            background: linear-gradient(135deg, #e6e9ff, #d9dcff);
+            padding: 4rem 0;
+        }
+
+        #projects h2 {
+            color: #2575fc;
+        }
+
+        /* الوضع الليلي */
+        body.dark-mode #skills {
+            background: linear-gradient(135deg, #2c2c2c, #333);
+        }
+
+        body.dark-mode #skills h2 {
+            color: #6a11cb;
+        }
+
+        body.dark-mode .skill {
+            background: #2c2c2c;
+            border-color: #444;
+            color: #f9f9f9;
+        }
+
+        body.dark-mode .skill:hover {
+            background: #333;
+            border-color: #6a11cb;
+        }
+
+        body.dark-mode #projects {
+            background: linear-gradient(135deg, #333, #2c2c2c);
+        }
+
+        body.dark-mode #projects h2 {
+            color: #6a11cb;
+        }
+
+        body.dark-mode .project {
+            background: #2c2c2c;
+            border-color: #444;
+            color: #f9f9f9;
+        }
+
+        body.dark-mode .project:hover {
+            background: #333;
+            border-color: #6a11cb;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-form input, .contact-form textarea {
+            margin: 0.5rem 0;
+            padding: 0.8rem;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: white;
+            color: #333;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: #2575fc;
+            outline: none;
+        }
+
+        .contact-form button {
+            background-color: #2575fc;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #6a11cb;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: #6a11cb;
+            text-decoration: none;
+            margin: 0 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #2575fc;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .dark-mode-toggle:hover {
+            background-color: #6a11cb;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Media Queries للتكيف مع الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            nav ul li {
+                margin: 0.3rem 0.5rem;
+            }
+
+            nav ul li a {
+                font-size: 1rem;
+                padding: 0.5rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .skill, .project {
+                padding: 1rem;
+            }
+
+            .skill i, .project i {
+                font-size: 2rem;
+            }
+
+            .contact-form input, .contact-form textarea {
+                padding: 0.6rem;
+                font-size: 0.9rem;
+            }
+
+            .contact-form button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            header p {
+                font-size: 0.9rem;
+            }
+
+            nav ul li a {
+                font-size: 0.9rem;
+                padding: 0.4rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .skill, .project {
+                padding: 0.8rem;
+            }
+
+            .skill i, .project i {
+                font-size: 1.8rem;
+            }
+
+            .contact-form input, .contact-form textarea {
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
+
+            .contact-form button {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>مرحبًا، أنا حسن</h1>
+        <p>مبرمج و مصمم مواقع ويب</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#home">الرئيسية</a></li>
+            <li><a href="#about">من أنا؟</a></li>
+            <li><a href="#skills">مهاراتي</a></li>
+            <li><a href="#projects">مشاريعي</a></li>
+            <li><a href="#contact">اتصل بي</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="visible">
+        <div class="container">
+            <h2>مرحبًا بكم في موقعي</h2>
+            <p>هذا موقع شخصي يعرض مهاراتي وخبراتي في مجال البرمجة وتصميم المواقع.</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2>من أنا؟</h2>
+            <p>أنا حسن، مبرمج متحمس لإنشاء مواقع ويب رائعة وتجارب مستخدم ممتعة. أحب العمل على مشاريع جديدة وتعلم تقنيات حديثة.</p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2>مهاراتي</h2>
+            <div class="skills-grid">
+                <div class="skill">
+                    <i class="fas fa-code"></i>
+                    <h3>HTML & CSS</h3>
+                    <p>تصميم واجهات ويب تفاعلية وجذابة.</p>
+                </div>
+                <div class="skill">
+                    <i class="fab fa-js"></i>
+                    <h3>JavaScript</h3>
+                    <p>إضافة التفاعل والديناميكية إلى المواقع.</p>
+                </div>
+                <div class="skill">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>تصميم الواجهات</h3>
+                    <p>تصميم واجهات مستخدم بدقة وإبداع.</p>
+                </div>
+                <div class="skill">
+                    <i class="fas fa-gamepad"></i>
+                    <h3>برمجة الألعاب</h3>
+                    <p>تطوير ألعاب تفاعلية باستخدام تقنيات حديثة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2>مشاريعي</h2>
+            <div class="projects-grid">
+                <div class="project">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>موقع تجاري</h3>
+                    <p>تصميم موقع تجاري متكامل مع نظام إدارة المحتوى.</p>
+                </div>
+                <div class="project">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>تطبيق جوال</h3>
+                    <p>تطوير تطبيق جوال لنظامي iOS وAndroid.</p>
+                </div>
+                <div class="project">
+                    <i class="fas fa-gamepad"></i>
+                    <h3>لعبة ويب</h3>
+                    <p>إنشاء لعبة ويب تفاعلية باستخدام JavaScript.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>اتصل بي</h2>
+            <form class="contact-form">
+                <input type="text" placeholder="اسمك" required>
+                <input type="email" placeholder="بريدك الإلكتروني" required>
+                <textarea placeholder="رسالتك" required></textarea>
+                <button type="submit">إرسال</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2023 Hasan. جميع الحقوق محفوظة.</p>
+            <p>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </p>
+        </div>
+    </footer>
+
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            document.querySelectorAll('nav ul li a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            document.querySelector('.contact-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('تم إرسال رسالتك بنجاح!');
+                this.reset();
+            });
+        });
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const toggleButton = document.querySelector('.dark-mode-toggle');
+            if (document.body.classList.contains('dark-mode')) {
+                toggleButton.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                toggleButton.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        }
+    </script>
+</body>
+</html>
